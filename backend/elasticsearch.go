@@ -10,6 +10,8 @@ import (
 	"github.com/olivere/elastic/v7"
 )
 
+var _ ElasticsearchService = &ElasticsearchBackend{}
+
 var (
     ESBackend *ElasticsearchBackend
 )
