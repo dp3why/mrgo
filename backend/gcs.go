@@ -52,6 +52,11 @@ func UploadFileToGCS(ctx context.Context, file io.Reader, bucketName, objectName
 		return "", err
 	}
 
+	// set ACL to read for all public users
+	if err := object.ACL().Set(ctx, storage.AllUsers, storage.RoleReader); err != nil {
+        return "", err
+    }
+
 	attrs, err := object.Attrs(ctx)
     if err != nil {
 		log.Default().Printf("Attrs: %v.\n", err)
