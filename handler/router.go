@@ -18,7 +18,7 @@ func InitRouter() http.Handler {
 	})
 
 	router:= mux.NewRouter()
-	
+	router.Handle("/", http.HandlerFunc(CheckRootHandler)).Methods("GET")
 	router.Handle("/upload", jwtMiddleware.Handler(http.HandlerFunc(uploadHandler))).Methods("POST")
 	router.Handle("/search", http.HandlerFunc(searchHandler)).Methods("GET")
 	router.Handle("/post/{id}", jwtMiddleware.Handler(http.HandlerFunc(deleteHandler))).Methods("DELETE")
