@@ -30,6 +30,12 @@ WORKDIR /root/
 # Copy the Pre-built binary file from the previous stage
 COPY --from=builder /app/main .
 
+# Copy the encrypted.bin file into the container
+COPY --from=builder /app/encrypted.bin .
+
+# Set the environment variable to the path of encrypted.bin inside the container
+ENV ENCRYPTED_CREDENTIALS_PATH="/root/encrypted.bin"
+
 # Expose port 8080 to the outside world
 EXPOSE 8080
 
