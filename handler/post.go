@@ -35,7 +35,7 @@ var (
 
 // 1. upload
 func uploadHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("Received one post request %v.\n", r)
+	// fmt.Printf("Received one post request %v.\n", r)
 
     token := r.Context().Value("user")
     claims := token.(*jwt.Token).Claims
@@ -77,8 +77,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
     ctx := context.Background()
 
     // Upload the file to GCS
- 
-    medialink, err := backend.UploadFileToGCS(ctx, file, constants.GCS_BUCKET, "uploaded_file_name_in_gcs.jpg")
+    medialink, err := backend.UploadFileToGCS(ctx, file, constants.GCS_BUCKET, p.Id + suffix)
     if err != nil {
         log.Fatalf("Error saving file to GCS: %v", err)
          return  
