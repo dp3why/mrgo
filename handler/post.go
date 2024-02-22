@@ -32,10 +32,15 @@ var (
 func uploadHandler(w http.ResponseWriter, r *http.Request) {
 
     // 1. process the request
+    token := r.Context().Value("user")
+    claims := token.(*jwt.Token).Claims
+    username := claims.(jwt.MapClaims)["username"].(string)
+
+
     // form data -> go struct
     p := model.Post{
         Id:      uuid.New().String(),
-        User:    r.FormValue("user"),
+        User:    username,
         Message: r.FormValue("message"),
     }
  
