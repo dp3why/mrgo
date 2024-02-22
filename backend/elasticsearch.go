@@ -2,7 +2,6 @@ package backend
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	"github.com/dp3why/mrgo/constants"
@@ -77,7 +76,7 @@ func InitElasticsearchBackend() {
             log.Fatalf("Error creating the user index: %s", err)
         }
     }
-    fmt.Println("Indexes are created.")
+    log.Default().Println("Indices created.")
 
     ESBackend = &ElasticsearchBackend{
         client: client,

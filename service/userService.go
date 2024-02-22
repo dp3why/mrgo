@@ -1,7 +1,7 @@
 package service
 
 import (
-	"fmt"
+	"log"
 	"reflect"
 
 	"github.com/dp3why/mrgo/backend"
@@ -25,7 +25,7 @@ func CheckUser(username string, password string) (bool, error) {
 	for _, item := range searchResult.Each(reflect.TypeOf(utype)) {
 		u := item.(model.User)
 		if u.Password == password {
-			fmt.Printf("Login as %s\n", username)
+			log.Default().Printf("Login as %s\n", username)
 			return true, nil
 		}
 	}
@@ -50,6 +50,6 @@ func AddUser(user *model.User) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	fmt.Printf("User is added: %s\n", user.Username)
+	log.Default().Printf("User is added: %s\n", user.Username)
 	return true, nil
 }

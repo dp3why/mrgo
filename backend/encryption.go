@@ -10,6 +10,7 @@ import (
 	"encoding/pem"
 	"fmt"
 	"io"
+	"log"
 	"os"
 )
 
@@ -35,7 +36,7 @@ func Gen(jsonFilePath string, encryptedFilePath string) {
 	if err := os.WriteFile("./.env", []byte(envContent), 0600); err != nil {
 		panic(err)
 	}
-    fmt.Println("Base64 Encoded Private Key saved to .env file")
+    log.Default().Println("Base64 Encoded Private Key saved to .env file")
 
  
 
@@ -80,7 +81,7 @@ func Gen(jsonFilePath string, encryptedFilePath string) {
         panic(err)
     }
 
-    fmt.Println("Encrypted data written to:", encryptedFilePath)
+    log.Default().Println("Encrypted data written to:", encryptedFilePath)
 }
 
 // DecryptCredentials decrypts the encrypted credentials file using the RSA private key.

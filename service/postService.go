@@ -1,6 +1,7 @@
 package service
 
 import (
+	"mime/multipart"
 	"reflect"
 
 	"github.com/dp3why/mrgo/backend"
@@ -47,9 +48,16 @@ func getPostFromSearchResult(searchResult *elastic.SearchResult) []model.Post {
 }
 
 // ==== create a new post ====
-func SavePost(post *model.Post ) ( error) {
-     return backend.ESBackend.SaveToES(post, constants.POST_INDEX, post.Id)
-}
+func SavePost(post *model.Post, file multipart.File) error {
+    medialink, err := backend.GCSBackend.SaveToGCS(file, post.Id)
+    if err != nil {
+        return err
+    }
+    post.Url = medialink
+ 
+    return backend.ESBackend.SaveToES(post, constants.POST_INDEX, post.Id)
+ }
+ 
 
 // ==== delete a post ====
 func DeletePost(id string, user string) error {
